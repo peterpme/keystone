@@ -1,5 +1,5 @@
-var React = require('react/addons'),
-	ReactCSSTransitionGroup = React.addons.CSSTransitionGroup,
+var React = require('react'),
+	ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
 	AltText = require('react-alt-text');
 
 var Header = React.createClass({
@@ -173,7 +173,7 @@ var Header = React.createClass({
 		return (
 			<div>
 				<div className="item-toolbar item-toolbar--header">
-					<ReactCSSTransitionGroup transitionName="ToolbarToggle" className="ToolbarToggle-wrapper" component="div">
+					<ReactCSSTransitionGroup transitionName="ToolbarToggle" transitionEnterTimeout={500} transitionLeaveTimeout={320} className="ToolbarToggle-wrapper" component="div">
 						{this.renderDrilldown()}
 						{this.renderSearch()}
 					</ReactCSSTransitionGroup>

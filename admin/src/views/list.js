@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var CreateForm = require('../components/CreateForm');
 
 var View = React.createClass({
@@ -58,4 +59,4 @@ var View = React.createClass({
 	
 });
 
-React.render(<View />, document.getElementById('list-view'));
+ReactDOM.render(<View />, document.getElementById('list-view'));

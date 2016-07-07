@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var View = React.createClass({
 	
@@ -65,4 +66,4 @@ var View = React.createClass({
 	
 });
 
-React.render(<View />, document.getElementById('home-view'));
+ReactDOM.render(<View />, document.getElementById('home-view'));

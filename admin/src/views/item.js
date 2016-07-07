@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var request = require('superagent');
 
 var CreateForm = require('../components/CreateForm');
@@ -61,4 +62,4 @@ var View = React.createClass({
 	
 });
 
-React.render(<View itemId={Keystone.itemId} />, document.getElementById('item-view'));
+ReactDOM.render(<View itemId={Keystone.itemId} />, document.getElementById('item-view'));
