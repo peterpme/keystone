@@ -1,4 +1,5 @@
 var _ = require('underscore'),
+	assign = require('object-assign'),
 	moment = require('moment'),
 	React = require('react'),
 	Fields = require('FieldTypes'),
@@ -7,24 +8,24 @@ var _ = require('underscore'),
 	InvalidFieldType = require('./InvalidFieldType');
 
 var EditForm = React.createClass({
-	
+
 	displayName: 'EditForm',
-	
+
 	getInitialState: function() {
 		return {
 			values: _.clone(this.props.data.fields)
 		};
 	},
-	
+
 	getFieldProps: function(field) {
-		var props = _.clone(field);
-		props.value = this.state.values[field.path];
-		props.values = this.state.values;
-		props.onChange = this.handleChange;
-		props.mode = 'edit';
-		return props;
+		return assign({}, field, {
+			value: this.state.values[field.path],
+			values: this.state.values,
+			onChange: this.handleChange,
+			mode: 'edit'
+		})
 	},
-	
+
 	handleChange: function(event) {
 		var values = this.state.values;
 		values[event.path] = event.value;
