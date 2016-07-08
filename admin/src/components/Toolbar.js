@@ -1,11 +1,12 @@
 var _ = require('underscore'),
+	ReactDOM = require('react-dom'),
 	React = require('react'),
 	blacklist = require('blacklist');
 
 var Toolbar = React.createClass({
-	
+
 	displayName: 'Toolbar',
-	
+
 	getInitialState: function() {
 		return {
 			position: 'relative',
@@ -14,62 +15,62 @@ var Toolbar = React.createClass({
 			top: 0
 		};
 	},
-	
+
 	componentDidMount: function() {
-		
+
 		// Bail in IE8 because React doesn't support the onScroll event in that browser
 		// Conveniently (!) IE8 doesn't have window.getComputedStyle which we also use here
 		if (!window.getComputedStyle) return;
-		
-		var toolbar = this.refs.toolbar.getDOMNode();
-		
+
+		var toolbar = ReactDOM.findDOMNode(this.refs.toolbar);
+
 		this.windowSize = this.getWindowSize();
-		
+
 		var toolbarStyle = window.getComputedStyle(toolbar);
-		
+
 		this.toolbarSize = {
 			x: toolbar.offsetWidth,
 			y: toolbar.offsetHeight + parseInt(toolbarStyle.marginTop || '0')
 		};
-		
+
 		window.addEventListener('scroll', this.recalcPosition, false);
 		window.addEventListener('resize', this.recalcPosition, false);
-		
+
 		this.recalcPosition();
 	},
-	
+
 	getWindowSize: function() {
 		return {
 			x: window.innerWidth,
-			y: window.innerHeight	
+			y: window.innerHeight
 		};
 	},
-	
+
 	recalcPosition: function() {
 		var wrapper = this.refs.wrapper.getDOMNode();
-		
+
 		this.toolbarSize.x = wrapper.offsetWidth;
-		
+
 		var offsetTop = 0;
 		var offsetEl = wrapper;
-		
+
 		while (offsetEl) {
 			offsetTop += offsetEl.offsetTop;
 			offsetEl = offsetEl.offsetParent;
 		}
-		
+
 		var maxY = offsetTop + this.toolbarSize.y;
 		var viewY = window.scrollY + window.innerHeight;
-		
+
 		var newSize = this.getWindowSize();
 		var sizeChanged = (newSize.x !== this.windowSize.x || newSize.y !== this.windowSize.y);
 		this.windowSize = newSize;
-		
+
 		var newState = {
 			width: this.toolbarSize.x,
 			height: this.toolbarSize.y
 		};
-		
+
 		if (viewY > maxY && (sizeChanged || this.mode !== 'inline')) {
 			this.mode = 'inline';
 			newState.top = 0;
@@ -82,7 +83,7 @@ var Toolbar = React.createClass({
 			this.setState(newState);
 		}
 	},
-	
+
 	render: function() {
 		var wrapperStyle = {
 			position: 'relative',

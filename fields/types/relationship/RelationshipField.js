@@ -135,6 +135,7 @@ module.exports = Field.create({
 				callback(null, {
 					options: data.items.map(function (item) {
 						return {
+							key: item.id,
 							value: item.id,
 							label: item.name
 						};
